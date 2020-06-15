@@ -1,0 +1,10 @@
+import pandas as pd
+pip install bar_chart_race
+import bar_chart_race as bcr
+df_covid = pd.read_excel("HIST_PAINEL_COVIDBR_14jun2020.xlsx")
+df_covid.head()
+df_covid.dropna(subset=["municipio"], inplace=True)
+df_covid.head()
+df_covid_bcr = pd.DataFrame(df_covid.groupby(["regiao", "data"]).sum()["casosAcumulado"]).unstack().T.droplevel(level=0)
+df_covid_bcr
+bcr.bar_chart_race(df_covid_bcr)
